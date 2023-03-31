@@ -1,39 +1,26 @@
 package telas;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-
-import io.appium.java_client.android.AndroidDriver;
-import modulos.login.Login;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class LoginTela {
-    private Login ScreenLogin;
-
-    @Before
-    @DisplayName("Metodo de criação do driver")
-    public void criacaoDriverApp() throws MalformedURLException {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability("app","C:\\Users\\savio.borges\\Downloads\\lojinha-hibrida.apk");
-        capabilities.setCapability("deviceName","emulator-5554");
-        capabilities.setCapability("platformName", "Android");
-
-        AppiumDriver<MobileElement> driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), capabilities);
-        ScreenLogin = new Login(driver);
+    private WebDriver app;
+    public LoginTela(WebDriver app){
+        this.app = app;
     }
 
-    @Test
-    @DisplayName("Teste para Realizar um login com sucesso")
-    public void testRealizarLoginComSucesso() throws InterruptedException {
-        ScreenLogin.escreverEmail("admin");
-        ScreenLogin.escreverSenha("admin");
-        ScreenLogin.botaoEntrar();
+    public LoginTela escreverEmail(String email)  {
+        app.findElement(By.xpath("//android.webkit.WebView[@content-desc=\"Lojinha\"]/android.view.View[2]/android.view.View[2]/android.widget.EditText")).sendKeys(email);
+        return this;
+    }
+
+    public LoginTela escreverSenha(String senha) {
+        app.findElement(By.xpath("//android.webkit.WebView[@content-desc=\"Lojinha\"]/android.view.View[2]/android.view.View[3]/android.widget.EditText")).sendKeys(senha);
+        return this;
+    }
+
+    public ListaProdutoTela botaoEntrar()  {
+        app.findElement(By.xpath("//android.widget.Button[@content-desc=\"ENTRAR\"]")).click();
+        return new ListaProdutoTela(app);
     }
 }
