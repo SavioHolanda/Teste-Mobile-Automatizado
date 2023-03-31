@@ -1,8 +1,9 @@
-package modulos.login;
+package modulos.produto;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -40,10 +41,11 @@ public class ProdutoTest {
     @Test
     @DisplayName("Teste para Realizar um login invalido")
     public void testRealizarLoginInvalido() {
-        new LoginTela(app)
+         new LoginTela(app)
                 .escreverEmail("admin")
                 .escreverSenha("123")
-                .botaoEntrar();
+                .botaoEntrarComErro();
+
     }
     @After
     public void fecharDriver(){

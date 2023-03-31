@@ -23,4 +23,9 @@ public class LoginTela {
         app.findElement(By.xpath("//android.widget.Button[@content-desc=\"ENTRAR\"]")).click();
         return new ListaProdutoTela(app);
     }
+
+    public LoginTela botaoEntrarComErro()  {
+        app.findElement(By.xpath("//android.widget.Button[@content-desc=\"ENTRAR\"]")).click();
+        return this;
+    }
 }
